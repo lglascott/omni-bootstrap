@@ -1,0 +1,15 @@
+@mixin omni-font($font-title, $font-name, $font-svg-id) {
+	@font-face {
+		font-family: '#{$font-title}';
+		src: url(font-path('#{$omni-font-path}#{$font-name}.eot'));
+		src: url(font-path('#{$omni-font-path}#{$font-name}.eot?#iefix')) format('embedded-opentype'),
+		url(font-path('#{$omni-font-path}#{$font-name}.woff2')) format('woff2'),
+		url(font-path('#{$omni-font-path}#{$font-name}.woff')) format('woff'),
+		url(font-path('#{$omni-font-path}#{$font-name}.ttf')) format('truetype'),
+		url(font-path('#{$omni-font-path}#{$font-name}.svg##{$font-svg-id}')) format('svg');
+	}
+}
+
+@include omni-font('museo_sans100_italic', 'museo-sans-100-italic-webfont', 'museo_sans_100_italic_webfont');
+@include omni-font('museo_sans300', 'museo-sans-300-italic-webfont', 'museo_sans_300_italic_webfont');
+@include omni-font('museo_sans500', 'museo-sans-500-webfont', 'museo_sans_500_webfont');
