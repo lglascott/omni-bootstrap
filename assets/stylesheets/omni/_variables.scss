@@ -1,1 +1,37 @@
+// omni colors
+$omni-color-red: #DC001B !default;
+$omni-color-ghost: #E5E8E8 !default;
+$omni-color-medium-gray: #D2D2D1 !default;
+$omni-color-cool-gray: #9AA3AD !default;
+$omni-color-dark-gray: #575D65 !default;
+$omni-color-soft-black: #2E3336 !default;
+
+$omni-graphics-blue: #36ABDF !default;
+$omni-graphics-yellow: #F3D130 !default;
+$omni-graphics-red: #C4143A !default;
+
+// omni typography
 $omni-font-path: "/fonts" !default;
+
+// bootstrap color overrides
+$brand-primary:         $omni-color-red !default;
+$brand-success:         $omni-graphics-blue !default;
+$brand-info:            $omni-graphics-yellow !default;
+$brand-warning:         $omni-graphics-yellow !default;
+$brand-danger:          $omni-graphics-red !default;
+
+$gray-base:              $omni-color-soft-black !default;
+$gray-darker:            $omni-color-dark-gray !default;
+$gray-dark:              $omni-color-cool-gray !default;
+$gray:                   $omni-color-medium-gray !default;
+$gray-light:             $omni-color-ghost !default;
+$gray-lighter:           $omni-color-ghost !default;
+
+$link-color: $omni-color-red !default;
+$link-hover-color: $omni-color-red !default;
+
+// bootstrap typography overrides
+$font-family-sans-serif:  museo_sans300, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+// include bootstrap variables
+@import "bootstrap-sass/assets/stylesheets/bootstrap/variables";
