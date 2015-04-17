@@ -5,7 +5,7 @@
   "authors": [
     "Jonathan Azoff <jon@secretprojects.us>"
   ],
-  "description": "Canonical assets for Omni web clients",
+  "description": "Bootstrap theme and shared libraries for Omni web apps",
   "ignore": [
     "**/.*",
     "lib",
