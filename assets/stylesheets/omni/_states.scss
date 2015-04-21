@@ -1,0 +1,7 @@
+@import "variables";
+
+button, a {
+	&:focus {
+		outline: none 0 !important;
+	}
+}

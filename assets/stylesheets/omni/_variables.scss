@@ -12,6 +12,14 @@ $omni-graphics-red: #C4143A !default;
 
 // omni typography
 $omni-font-path: "/fonts" !default;
+$omni-font-family-light-italic:  museo_sans100, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$omni-font-family-regular:  museo_sans300, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$omni-font-family-bold:  museo_sans500, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+// bootstrap screen size overrides
+$screen-xs:                  480px !default;
+$screen-xs-min:              320px !default;
+$screen-phone:               $screen-xs !default;
 
 // bootstrap color overrides
 $brand-primary:         $omni-color-red !default;
@@ -20,18 +28,25 @@ $brand-info:            $omni-graphics-yellow !default;
 $brand-warning:         $omni-graphics-yellow !default;
 $brand-danger:          $omni-graphics-red !default;
 
-$gray-base:              $omni-color-soft-black !default;
-$gray-darker:            $omni-color-dark-gray !default;
-$gray-dark:              $omni-color-cool-gray !default;
-$gray:                   $omni-color-medium-gray !default;
-$gray-light:             $omni-color-ghost !default;
+$gray-base:              $omni-color-cool-gray !default;
+$gray:                   $omni-color-cool-gray !default;
+$gray-dark:              $omni-color-dark-gray !default;
+$gray-darker:            $omni-color-soft-black !default;
+$gray-light:             $omni-color-medium-gray !default;
 $gray-lighter:           $omni-color-ghost !default;
+
+$input-color: $omni-color-dark-gray !default;
 
 $link-color: $omni-color-red !default;
 $link-hover-color: $omni-color-red !default;
 
+// bootstrap control overrides
+$border-radius-base:  3px !default;
+$border-radius-large: 3px !default;
+$border-radius-small: 3px !default;
+
 // bootstrap typography overrides
-$font-family-sans-serif:  museo_sans300, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-family-sans-serif: $omni-font-family-regular;
 
 // include bootstrap variables
 @import "bootstrap-sass/assets/stylesheets/bootstrap/variables";
