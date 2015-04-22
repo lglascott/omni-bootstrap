@@ -41,8 +41,9 @@ define('omni-consumer-client', [
 
 	};
 
-	function ConsumerClient(host) {
+	function ConsumerClient(host, key) {
 		this.host = host;
+		this.key = key;
 	}
 
 	ConsumerClient.prototype = {
@@ -56,7 +57,7 @@ define('omni-consumer-client', [
 				method: 'POST',
 				url: this.absUrl(path),
 				context: this
-			}, options || {})).done(function (data) {
+			}, options || {})).then(function (data) {
 				var response = new Response(data);
 				return response.isError() ? $.Deferred().fail(response) : response;
 			}, function (xhr, error, message) {
@@ -75,6 +76,20 @@ define('omni-consumer-client', [
 			return this.exec('auth/login-facebook', {
 				token: token
 			}).then(function (resp) {
+				return resp.bodyContent(Account);
+			});
+		},
+
+		authSignUp: function (details) {
+			return this.exec('auth/signup', details).then(function (resp) {
+				return resp.bodyContent(Account);
+			});
+		},
+
+		authCreateLead: function (details) {
+			return this.exec('auth/lead', $.extend(details, {
+				key: this.key
+			})).then(function (resp) {
 				return resp.bodyContent(Account);
 			});
 		},
