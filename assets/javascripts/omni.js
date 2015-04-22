@@ -1,0 +1,4 @@
+define('omni', {
+	clients: {},
+	models: {}
+});

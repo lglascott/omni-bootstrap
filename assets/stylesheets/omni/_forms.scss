@@ -1,7 +1,7 @@
 @import "variables";
 
 .form-group {
-	label {
+	strong, label {
 		font-family: $omni-font-family-bold;
 	}
 }
