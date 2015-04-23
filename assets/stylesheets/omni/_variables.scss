@@ -10,8 +10,11 @@ $omni-graphics-blue: #36ABDF !default;
 $omni-graphics-yellow: #F3D130 !default;
 $omni-graphics-red: #C4143A !default;
 
+// omni images
+$omni-image-path: "../images" !default;
+
 // omni typography
-$omni-font-path: "/fonts" !default;
+$omni-font-path: "../fonts" !default;
 $omni-font-family-light-italic:  museo_sans100, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $omni-font-family-regular:  museo_sans300, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $omni-font-family-bold:  museo_sans500, "Helvetica Neue", Helvetica, Arial, sans-serif !default;

@@ -1,0 +1,17 @@
+@import "compass";
+@import "variables";
+
+.form-group {
+	strong, label {
+		font-family: $omni-font-family-bold;
+	}
+}
+
+.spinner {
+	$size: 60px / 1.5;
+	display: block;
+	padding-top: $size;
+	text-align: center;
+	background: url("#{$omni-image-path}/spinner.gif") no-repeat top center scroll transparent;
+	@include background-size($size $size);
+}
