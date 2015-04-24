@@ -11,7 +11,9 @@ define('omni-account-model', [
 	}
 
 	Account.prototype = {
-
+		fullName: function(){
+			return this.data.name;
+		}
 	};
 
 	omni.models.Account = Account;

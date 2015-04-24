@@ -15,3 +15,18 @@
 	background: url("#{$omni-image-path}/spinner.gif") no-repeat top center scroll transparent;
 	@include background-size($size $size);
 }
+
+.btn.btn-default {
+	color: $brand-primary;
+	border-color: $brand-primary;
+	&:hover, &:focus {
+		color: white;
+		border-color: $brand-primary;
+		background-color: $brand-primary;
+	}
+	&[disabled], &.disabled {
+		cursor: not-allowed;
+		color: $gray-lighter;
+		border-color: $gray-lighter;
+	}
+}

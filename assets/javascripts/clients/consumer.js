@@ -1,11 +1,13 @@
 define('omni-consumer-client', [
 	'omni',
 	'omni-salepoint-model',
-	'omni-account-model'
+	'omni-account-model',
+	'omni-timeslot-model'
 ], function(
 	omni,
-    SalePoint,
-	Account
+	SalePoint,
+	Account,
+	TimeSlot
 ) {
 
 	"use strict";
@@ -47,6 +49,7 @@ define('omni-consumer-client', [
 	function ConsumerClient(host, key) {
 		this.host = host;
 		this.key = key;
+		this.cookies = '';
 	}
 
 	ConsumerClient.prototype = {
@@ -61,6 +64,9 @@ define('omni-consumer-client', [
 				url: this.absUrl(path),
 				context: this,
 				data: data,
+				xhrFields: {
+					withCredentials: true
+				}
 			}, options || {})).then(function (data) {
 				var response = new Response(data);
 				return response.isError() ? $.Deferred().reject(response) : response;
@@ -76,7 +82,7 @@ define('omni-consumer-client', [
 			});
 		},
 
-		authLoginFacebook: function (token) {
+		loginWithFacebookToken: function (token) {
 			return this.exec('auth/login-facebook', {
 				token: token
 			}).then(function (resp) {
@@ -84,13 +90,13 @@ define('omni-consumer-client', [
 			});
 		},
 
-		authSignUp: function (details) {
+		signUp: function (details) {
 			return this.exec('auth/signup', details).then(function (resp) {
 				return resp.bodyContent(Account);
 			});
 		},
 
-		authCreateLead: function (details) {
+		createLead: function (details) {
 			return this.exec('auth/lead', $.extend(details, {
 				key: this.key,
 				building_name: DEFAULT_LEAD_BUILDING_NAME,
@@ -98,6 +104,50 @@ define('omni-consumer-client', [
 				phone_type: DEFAULT_LEAD_PHONE_TYPE
 			})).then(function (resp) {
 				return resp.bodyContent(Account);
+			});
+		},
+
+		pickupTimesScheduled: function () {
+			return this.exec('scheduler/available-dates', null, { method: 'GET' }).then(function (resp) {
+				return $.map(resp.bodyContent(), function(str){
+					return new Date(str).getTime();
+				});
+			});
+		},
+
+		pickupTimeSlots: function (opts) {
+			var weeks = [], now = new Date();
+			opts = $.extend({
+				startDate: now,
+				hourDelta: 2,
+				startHour: 8,
+				endHour: 18,
+				weeks: 1
+			}, opts || {});
+			return this.pickupTimesScheduled().then(function(scheduled){
+				for (var iweek = 0; iweek <= opts.weeks; iweek++) {
+					var week = [];
+					for (var iday = 0; iday < 7; iday++) {
+						var day = [];
+						for (var ihour = opts.startHour; ihour <= opts.endHour; ihour += opts.hourDelta) {
+							var ts, avail, end, start = new Date();
+							start.setHours(ihour);
+							start.setMinutes(0);
+							ts = start.setDate(start.getDate() + iweek * 7 + iday);
+							end = new Date(ts);
+							end.setHours(end.getHours() + opts.hourDelta);
+							avail = start > now && scheduled.indexOf(ts) < 0;
+							day.push(new TimeSlot({
+								start: start,
+								end: end,
+								available: avail
+							}));
+						}
+						week.push(day);
+					}
+					weeks.push(week);
+				}
+				return weeks;
 			});
 		},
 
