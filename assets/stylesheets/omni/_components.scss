@@ -17,8 +17,12 @@
 }
 
 .btn.btn-default {
-	color: $brand-primary;
-	border-color: $brand-primary;
+	&, &.active {
+		color: $brand-primary;
+		border-color: $brand-primary;
+		background-color: transparent;
+		@include box-shadow(0 0 0 0 transparent);
+	}
 	&:hover, &:focus {
 		color: white;
 		border-color: $brand-primary;

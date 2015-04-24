@@ -90,7 +90,13 @@ define('omni-consumer-client', [
 			});
 		},
 
-		signUp: function (details) {
+		login: function (details) {
+			return this.exec('auth/login', details).then(function (resp) {
+				return resp.bodyContent(Account);
+			});
+		},
+
+		signup: function (details) {
 			return this.exec('auth/signup', details).then(function (resp) {
 				return resp.bodyContent(Account);
 			});
