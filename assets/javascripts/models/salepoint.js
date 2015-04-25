@@ -10,10 +10,6 @@ define('omni-salepoint-model', [
 		this.data = data;
 	}
 
-	SalePoint.prototype = {
-
-	};
-
 	omni.models.SalePoint = SalePoint;
 	return SalePoint;
 

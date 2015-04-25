@@ -1,0 +1,12 @@
+@import "variables";
+
+button, a {
+	&:focus {
+		outline: none 0 !important;
+	}
+}
+
+em {
+	font-style: normal;
+	font-family: museo_sans100_italic, Verdana, Arial, Helvetica, sans-serif;
+}
