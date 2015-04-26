@@ -12,11 +12,7 @@ define('omni-consumer-client', [
 
 	"use strict";
 
-	var SUCCESS_STATUS_CODE = 200;
 	var SUPPORTED_ZIP_CODES = [94124, 94115, 94117, 94114, 94110, 94103, 94102, 94124, 94109, 94108, 94111, 94133, 94104, 94105, 94107, 94124];
-	var DEFAULT_LEAD_BUILDING_NAME = 'My Residence';
-	var DEFAULT_LEAD_PHONE_NUMBER = '000-000-0000';
-	var DEFAULT_LEAD_PHONE_TYPE = 'n/a';
 
 	function Response(data) {
 		this.data = data;
@@ -25,7 +21,11 @@ define('omni-consumer-client', [
 	Response.prototype = {
 
 		isError: function () {
-			return this.data.statusCode !== SUCCESS_STATUS_CODE;
+			return this.statusCode() !== ConsumerClient.statusCodes.OK;
+		},
+
+		statusCode: function () {
+			return this.data.statusCode;
 		},
 
 		errorMessage: function () {
@@ -49,10 +49,20 @@ define('omni-consumer-client', [
 	function ConsumerClient(host, key) {
 		this.host = host;
 		this.key = key;
-		this.cookies = '';
 	}
 
+	ConsumerClient.statusCodes = {
+		OK: 200,
+		ALREADY_LOGGED_IN: 1016
+	};
+
 	ConsumerClient.prototype = {
+
+		statusCodes: ConsumerClient.statusCodes,
+
+		constants: {
+			CUSTOM_BUILDING_NAME: 'My Residence'
+		},
 
 		absUrl: function (path) {
 			return this.host + '/api/v1/' + path;
@@ -82,6 +92,12 @@ define('omni-consumer-client', [
 			});
 		},
 
+		updateProfile: function(details) {
+			return this.exec('profile', details).then(function (resp) {
+				return resp.bodyContent(Account);
+			});
+		},
+
 		loginWithFacebookToken: function (token) {
 			return this.exec('auth/login-facebook', {
 				token: token
@@ -96,6 +112,10 @@ define('omni-consumer-client', [
 			});
 		},
 
+		logout: function () {
+			return this.exec('auth/logout', null, { method: 'GET' });
+		},
+
 		signup: function (details) {
 			return this.exec('auth/signup', details).then(function (resp) {
 				return resp.bodyContent(Account);
@@ -105,9 +125,7 @@ define('omni-consumer-client', [
 		createLead: function (details) {
 			return this.exec('auth/lead', $.extend(details, {
 				key: this.key,
-				building_name: DEFAULT_LEAD_BUILDING_NAME,
-				phone_number: DEFAULT_LEAD_PHONE_NUMBER,
-				phone_type: DEFAULT_LEAD_PHONE_TYPE
+				building_name: this.constants.CUSTOM_BUILDING_NAME
 			})).then(function (resp) {
 				return resp.bodyContent(Account);
 			});

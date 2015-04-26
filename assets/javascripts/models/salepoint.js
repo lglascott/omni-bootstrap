@@ -10,6 +10,11 @@ define('omni-salepoint-model', [
 		this.data = data;
 	}
 
+	SalePoint.prototype = {
+		title: function(){ return this.data.title; },
+		street: function(){ return this.data.street; }
+	};
+
 	omni.models.SalePoint = SalePoint;
 	return SalePoint;
 

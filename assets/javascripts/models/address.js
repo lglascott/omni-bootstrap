@@ -11,8 +11,10 @@ define('omni-address-model', [
 	}
 
 	Address.prototype = {
+		title: function() { return this.data.title; },
 		apt: function() { return this.data.apt; },
-		street: function() { return this.data.street; }
+		street: function() { return this.data.street; },
+		zip: function() { return this.data.zip; }
 	};
 
 	omni.models.Address = Address;
