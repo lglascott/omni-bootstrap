@@ -139,6 +139,11 @@ define('omni-consumer-client', [
 			});
 		},
 
+		requestPickup: function (date) {
+			var str = date.toISOString();
+			return this.exec('scheduler/pickup-date', { scheduled_date: str });
+		},
+
 		updatePaymentCredentials: function(details){
 			return this.exec('payments/credentials', details);
 		},

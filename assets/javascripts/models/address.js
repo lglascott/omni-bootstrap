@@ -14,6 +14,8 @@ define('omni-address-model', [
 		title: function() { return this.data.title; },
 		apt: function() { return this.data.apt; },
 		street: function() { return this.data.street; },
+		city: function() { return this.data.city; },
+		state: function() { return this.data.state; },
 		zip: function() { return this.data.zip; }
 	};
 
