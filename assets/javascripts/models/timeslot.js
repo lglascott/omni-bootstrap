@@ -11,8 +11,8 @@ define('omni-timeslot-model', [
 	}
 
 	TimeSlot.prototype = {
-		start: function() { return this.data.start; },
-		end: function() { return this.data.end; },
+		start: function() { return new Date(this.data.start); },
+		end: function() { return new Date(this.data.end); },
 		available: function() { return !!this.data.available; }
 	};
 

@@ -139,6 +139,10 @@ define('omni-consumer-client', [
 			});
 		},
 
+		updatePaymentCredentials: function(details){
+			return this.exec('payments/credentials', details);
+		},
+
 		pickupTimeSlots: function (opts) {
 			var weeks = [], now = new Date();
 			opts = $.extend({
@@ -162,8 +166,8 @@ define('omni-consumer-client', [
 							end.setHours(end.getHours() + opts.hourDelta);
 							avail = start > now && scheduled.indexOf(ts) < 0;
 							day.push(new TimeSlot({
-								start: start,
-								end: end,
+								start: start.getTime(),
+								end: end.getTime(),
 								available: avail
 							}));
 						}
