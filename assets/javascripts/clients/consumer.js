@@ -2,12 +2,14 @@ define('omni-consumer-client', [
 	'omni',
 	'omni-salepoint-model',
 	'omni-account-model',
-	'omni-timeslot-model'
+	'omni-timeslot-model',
+	'omni-sale-order-model'
 ], function(
 	omni,
 	SalePoint,
 	Account,
-	TimeSlot
+	TimeSlot,
+	SaleOrder
 ) {
 
 	"use strict";
@@ -92,6 +94,12 @@ define('omni-consumer-client', [
 			});
 		},
 
+		depositSaleOrders: function() {
+			return this.exec('saleorders/check-ins', null, { method: 'GET' }).then(function (resp) {
+				return resp.bodyContent(SaleOrder);
+			});
+		},
+
 		updateProfile: function(details) {
 			return this.exec('profile', details).then(function (resp) {
 				return resp.bodyContent(Account);
@@ -140,8 +148,9 @@ define('omni-consumer-client', [
 		},
 
 		requestPickup: function (date) {
-			var str = date.toISOString();
-			return this.exec('scheduler/pickup-date', { scheduled_date: str });
+			return this.exec('scheduler/pickup-date', {
+				scheduled_date: date.toISOString()
+			});
 		},
 
 		updatePaymentCredentials: function(details){
