@@ -1,5 +1,9 @@
 @import "variables";
 
+h1 {
+	letter-spacing: 4px;
+}
+
 button, a {
 	&:focus {
 		outline: none 0 !important;
