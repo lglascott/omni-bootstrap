@@ -1,9 +1,11 @@
 define('omni-account-model', [
 	'omni',
-	'omni-address-model'
+	'omni-address-model',
+	'jquery'
 ], function(
 	omni,
-    Address
+	Address,
+	$
 ) {
 
 	"use strict";
@@ -44,8 +46,14 @@ define('omni-account-model', [
 				return this.data.address ? new Address(this.data.address) : null;
 			else this.data.address = value;
 			return this;
+		},
+		fillProfile: function(values) {
+			return $.extend({}, this.data, {
+				first_name: this.firstName(),
+				last_name: this.lastName(),
+				email: this.email()
+			}, values);
 		}
-
 	};
 
 	omni.models.Account = Account;

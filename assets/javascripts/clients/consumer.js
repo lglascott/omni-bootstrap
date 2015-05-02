@@ -3,18 +3,21 @@ define('omni-consumer-client', [
 	'omni-salepoint-model',
 	'omni-account-model',
 	'omni-timeslot-model',
+	'omni-coupon-model',
 	'omni-sale-order-model'
 ], function(
 	omni,
 	SalePoint,
 	Account,
 	TimeSlot,
+	Coupon,
 	SaleOrder
 ) {
 
 	"use strict";
 
 	var SUPPORTED_ZIP_CODES = [94124, 94115, 94117, 94114, 94110, 94103, 94102, 94124, 94109, 94108, 94111, 94133, 94104, 94105, 94107, 94124];
+	var couponCache = {};
 
 	function Response(data) {
 		this.data = data;
@@ -51,11 +54,14 @@ define('omni-consumer-client', [
 	function ConsumerClient(host, key) {
 		this.host = host;
 		this.key = key;
+		this.errorHandlers = {};
 	}
 
 	ConsumerClient.statusCodes = {
 		OK: 200,
-		ALREADY_LOGGED_IN: 1016
+		ALREADY_LOGGED_IN: 1016,
+		NOT_FOUND: 404,
+		AUTH_REQUIRED: 401
 	};
 
 	ConsumerClient.prototype = {
@@ -66,11 +72,18 @@ define('omni-consumer-client', [
 			CUSTOM_BUILDING_NAME: 'My Residence'
 		},
 
+		onError: function(code, handler) {
+			if (!this.errorHandlers.hasOwnProperty(code))
+				this.errorHandlers[code] = $.Callbacks();
+			this.errorHandlers[code].add(handler);
+		},
+
 		absUrl: function (path) {
 			return this.host + '/api/v1/' + path;
 		},
 
 		exec: function (path, data, options) {
+			var errorHandlers = this.errorHandlers;
 			return $.ajax($.extend({}, {
 				method: 'POST',
 				url: this.absUrl(path),
@@ -91,6 +104,10 @@ define('omni-consumer-client', [
 						content: false
 					}
 				});
+			}).fail(function(resp){
+				var code = resp.statusCode().toString();
+				if (code in errorHandlers)
+					errorHandlers[code].fire(resp);
 			});
 		},
 
@@ -98,6 +115,25 @@ define('omni-consumer-client', [
 			return this.exec('saleorders/check-ins', null, { method: 'GET' }).then(function (resp) {
 				return resp.bodyContent(SaleOrder);
 			});
+		},
+
+		installCoupons: function(cache) {
+			$.extend(couponCache, cache);
+		},
+
+		lookupCoupon: function(code) {
+			var job = $.Deferred();
+			if (code in couponCache)
+				job.resolve(new Coupon($.extend({code:code}, couponCache[code])));
+			else job.reject(new Response({
+				statusCode: ConsumerClient.statusCodes.NOT_FOUND,
+				statusMessage: 'Not Found',
+				body: {
+					messages: [{type: "error", text: "Invalid coupon code"}],
+					content: false
+				}
+			}));
+			return job.promise();
 		},
 
 		updateProfile: function(details) {

@@ -7,13 +7,19 @@
 	}
 }
 
+$spinner-size: 40px;
+
 .spinner {
-	$size: 60px / 1.5;
 	display: block;
-	padding-top: $size;
+	padding-top: 32%;
 	text-align: center;
-	background: url("#{$omni-image-path}/spinner.gif") no-repeat top center scroll transparent;
-	@include background-size($size $size);
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: url("#{$omni-image-path}/spinner.gif") no-repeat center 40% scroll transparent;
+	@include background-size($spinner-size);
 }
 
 .btn.btn-default {
@@ -30,5 +36,26 @@
 		cursor: not-allowed;
 		color: $gray-lighter;
 		border-color: $gray-lighter;
+	}
+}
+
+.loadable {
+	&::after {
+		top: 0;
+		z-index: 50;
+		left: -100%;
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		@include opacity(0);
+		background: url("#{$omni-image-path}/spinner.gif") center center no-repeat scroll fade-out(white, 0.2);
+		@include background-size($spinner-size);
+		@include transition(opacity 0.5s, left 0s ease 0.5s);
+	}
+	&.loading::after {
+		left: 0;
+		@include opacity(1);
+		@include transition(opacity 0.5s, left 0s);
 	}
 }

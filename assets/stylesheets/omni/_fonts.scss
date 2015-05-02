@@ -1,12 +1,12 @@
 @mixin omni-font($font-title, $font-name, $font-svg-id) {
 	@font-face {
 		font-family: '#{$font-title}';
-		src: url(font-path('#{$omni-font-path}#{$font-name}.eot'));
-		src: url(font-path('#{$omni-font-path}#{$font-name}.eot?#iefix')) format('embedded-opentype'),
-		url(font-path('#{$omni-font-path}#{$font-name}.woff2')) format('woff2'),
-		url(font-path('#{$omni-font-path}#{$font-name}.woff')) format('woff'),
-		url(font-path('#{$omni-font-path}#{$font-name}.ttf')) format('truetype'),
-		url(font-path('#{$omni-font-path}#{$font-name}.svg##{$font-svg-id}')) format('svg');
+		src: url(font-path('#{$omni-font-path}/#{$font-name}.eot'));
+		src: url(font-path('#{$omni-font-path}/#{$font-name}.eot?#iefix')) format('embedded-opentype'),
+		url(font-path('#{$omni-font-path}/#{$font-name}.woff2')) format('woff2'),
+		url(font-path('#{$omni-font-path}/#{$font-name}.woff')) format('woff'),
+		url(font-path('#{$omni-font-path}/#{$font-name}.ttf')) format('truetype'),
+		url(font-path('#{$omni-font-path}/#{$font-name}.svg##{$font-svg-id}')) format('svg');
 	}
 }
 
