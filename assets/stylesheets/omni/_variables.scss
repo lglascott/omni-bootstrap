@@ -19,6 +19,10 @@ $omni-font-family-light-italic:  museo_sans100, "Helvetica Neue", Helvetica, Ari
 $omni-font-family-regular:  museo_sans300, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $omni-font-family-bold:  museo_sans500, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
+// bootstrap typography overrides
+$font-size-h1: 32px !default;
+$font-size-h2: 28px !default;
+
 // bootstrap screen size overrides
 $screen-xs:                  480px !default;
 $screen-xs-min:              320px !default;

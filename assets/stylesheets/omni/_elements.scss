@@ -5,6 +5,10 @@ h1 {
 	letter-spacing: 4px;
 }
 
+strong {
+	font-family: $omni-font-family-bold;
+}
+
 button, a {
 	&:focus {
 		outline: none 0 !important;

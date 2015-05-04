@@ -1,12 +1,6 @@
 @import "compass";
 @import "variables";
 
-.form-group {
-	strong, label {
-		font-family: $omni-font-family-bold;
-	}
-}
-
 $spinner-size: 40px;
 
 .spinner {
