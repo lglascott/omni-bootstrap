@@ -33,6 +33,25 @@ $spinner-size: 40px;
 	}
 }
 
+.breadcrumb {
+	font-size: smaller;
+	li {
+		&:hover, &:focus, &:active {
+			outline: none 0;
+			cursor: pointer;
+			color: darken($brand-success, 10%);
+		}
+	}
+	.active ~ li {
+		color: $gray-lighter;
+	}
+	.active, .active ~ li {
+		&:hover, &:focus, &:active {
+			cursor: default;
+		}
+	}
+}
+
 .loadable {
 	&::after {
 		top: 0;
