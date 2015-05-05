@@ -5,14 +5,13 @@ $spinner-size: 40px;
 
 .spinner {
 	display: block;
-	padding-top: 32%;
+	padding-top: 50px;
 	text-align: center;
-	height: 100%;
-	position: absolute;
+	margin: 12vh 0;
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: url("#{$omni-image-path}/spinner.gif") no-repeat center 40% scroll transparent;
+	background: url("#{$omni-image-path}/spinner.gif") no-repeat center top scroll transparent;
 	@include background-size($spinner-size);
 }
 
