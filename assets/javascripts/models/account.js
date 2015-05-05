@@ -30,6 +30,9 @@ define('omni-account-model', [
 		hasPricingPlan: function() {
 			return !!this.pricingPlan();
 		},
+		canCheckin: function() {
+			return this.hasAddress() && this.hasPhone();
+		},
 		isBillable: function() {
 			return this.hasPaymentCredentials() && this.hasPricingPlan();
 		},
@@ -37,6 +40,9 @@ define('omni-account-model', [
 			if (val === undefined) return this.data.phone;
 			else this.data.phone = val;
 			return this;
+		},
+		hasPhone: function() {
+			return !!this.phone();
 		},
 		hasAddress: function(){
 			return !!this.address();
