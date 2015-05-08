@@ -13,8 +13,8 @@ define('omni-coupon-model', [
 	Coupon.prototype = {
 		discountPercentage: function(){ return (this.data.discount_amount * 100).toString() + '%'; },
 		buildingName: function(){ return this.data.building_name; },
-		isFacebookPromo: function(){ return this.code().indexOf("facebook") > 0; },
-		code: function() { this.data.code }
+		isFacebookPromo: function(){ return this.code().indexOf("facebook") >= 0; },
+		code: function() { return this.data.code }
 	};
 
 	omni.models.Coupon = Coupon;
