@@ -15,20 +15,62 @@ $spinner-size: 40px;
 	@include background-size($spinner-size);
 }
 
-.btn.btn-default {
-	color: $brand-primary;
-	border-color: $brand-primary;
-	background-color: transparent;
-	&:hover, &:focus, &.active {
-		color: white;
-		@include box-shadow(0 0 0 0 transparent);
+.btn {
+	&.btn-default {
+		color: $brand-primary;
 		border-color: $brand-primary;
-		background-color: $brand-primary;
+		background-color: transparent;
+		&:hover, &:focus, &.active {
+			color: white;
+			@include box-shadow(0 0 0 0 transparent);
+			border-color: $brand-primary;
+			background-color: $brand-primary;
+		}
+		&[disabled], &.disabled {
+			cursor: not-allowed;
+			color: $gray-lighter;
+			border-color: $gray-lighter;
+		}
 	}
-	&[disabled], &.disabled {
-		cursor: not-allowed;
-		color: $gray-lighter;
-		border-color: $gray-lighter;
+	&.btn-google {
+		color: white;
+		border-color: $google-color-red;
+		background-color: $google-color-red;
+		&:hover, &:focus, &.active {
+			@include box-shadow(0 0 0 0 transparent);
+			border-color: darken($google-color-red, 5%);
+			background-color: darken($google-color-red, 5%);
+		}
+	}
+	&.btn-yahoo {
+		color: white;
+		border-color: $yahoo-color-purple;
+		background-color: $yahoo-color-purple;
+		&:hover, &:focus, &.active {
+			@include box-shadow(0 0 0 0 transparent);
+			border-color: darken($yahoo-color-purple, 5%);
+			background-color: darken($yahoo-color-purple, 5%);
+		}
+	}
+	&.btn-outlook {
+		color: white;
+		border-color: $outlook-color-blue;
+		background-color: $outlook-color-blue;
+		&:hover, &:focus, &.active {
+			@include box-shadow(0 0 0 0 transparent);
+			border-color: darken($outlook-color-blue, 5%);
+			background-color: darken($outlook-color-blue, 5%);
+		}
+	}
+	&.btn-apple {
+		color: white;
+		border-color: $apple-color-gray;
+		background-color: $apple-color-gray;
+		&:hover, &:focus, &.active {
+			@include box-shadow(0 0 0 0 transparent);
+			border-color: darken($apple-color-gray, 5%);
+			background-color: darken($apple-color-gray, 5%);
+		}
 	}
 }
 

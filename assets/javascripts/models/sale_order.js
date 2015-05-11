@@ -14,7 +14,7 @@ define('omni-sale-order-model', [
 
 	SaleOrder.prototype = {
 		orderNumber: function(){ return this.data.order_number; },
-		scheduledDate: function(){ return new Date(this.data.scheduled_date + ' Z'); },
+		scheduledDate: function(){ return new Date(this.data.scheduled_date + '  GMT-0000'); },
 		timeSlot: function(){
 			return new TimeSlot({ start: this.scheduledDate().getTime() });
 		}
