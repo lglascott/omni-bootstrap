@@ -4,20 +4,21 @@ define('omni-consumer-client', [
 	'omni-account-model',
 	'omni-timeslot-model',
 	'omni-coupon-model',
-	'omni-sale-order-model'
+	'omni-sale-order-model',
+	'jquery'
 ], function(
 	omni,
 	SalePoint,
 	Account,
 	TimeSlot,
 	Coupon,
-	SaleOrder
+	SaleOrder,
+    $
 ) {
 
 	"use strict";
 
 	var SUPPORTED_ZIP_CODES = [94124, 94115, 94117, 94114, 94110, 94103, 94102, 94124, 94109, 94108, 94111, 94133, 94104, 94105, 94107, 94124];
-	var couponCache = {};
 
 	function Response(data) {
 		this.data = data;
@@ -59,9 +60,9 @@ define('omni-consumer-client', [
 
 	ConsumerClient.statusCodes = {
 		OK: 200,
-		ALREADY_LOGGED_IN: 1016,
 		NOT_FOUND: 404,
-		AUTH_REQUIRED: 401
+		AUTH_REQUIRED: 401,
+		ALREADY_LOGGED_IN: 1016
 	};
 
 	ConsumerClient.prototype = {
@@ -117,14 +118,10 @@ define('omni-consumer-client', [
 			});
 		},
 
-		installCoupons: function(cache) {
-			$.extend(couponCache, cache);
-		},
-
 		lookupCoupon: function(code) {
 			var job = $.Deferred();
-			if (code in couponCache)
-				job.resolve(new Coupon($.extend({code:code}, couponCache[code])));
+			if (Coupon.isValidCode(code))
+				job.resolve(new Coupon({ code: $.trim(code).toLowerCase() }));
 			else job.reject(new Response({
 				statusCode: ConsumerClient.statusCodes.NOT_FOUND,
 				statusMessage: 'Not Found',

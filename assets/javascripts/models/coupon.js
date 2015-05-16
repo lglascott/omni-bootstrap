@@ -1,20 +1,21 @@
 define('omni-coupon-model', [
-	'omni',
+	'omni'
 ], function(
 	omni
 ) {
 
 	"use strict";
 
+	Coupon.isValidCode = function(code) {
+		return /^[\w\d\-]{8,}$/i.test(code)
+	};
+
 	function Coupon(data) {
 		this.data = data;
 	}
 
 	Coupon.prototype = {
-		discountPercentage: function(){ return (this.data.discount_amount * 100).toString() + '%'; },
-		buildingName: function(){ return this.data.building_name; },
-		isFacebookPromo: function(){ return this.code().indexOf("facebook") >= 0; },
-		code: function() { return this.data.code }
+		code: function() { return this.data.code || ''; }
 	};
 
 	omni.models.Coupon = Coupon;
