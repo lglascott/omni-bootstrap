@@ -7,7 +7,7 @@ define('omni-coupon-model', [
 	"use strict";
 
 	Coupon.isValidCode = function(code) {
-		return /^[\w\d\-]{8,}$/i.test(code)
+		return /^[\w\d\-]{6,}$/i.test(code)
 	};
 
 	function Coupon(data) {
