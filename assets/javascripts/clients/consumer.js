@@ -197,7 +197,9 @@ define('omni-consumer-client', [
 				hourDelta: 2,
 				startHour: 8,
 				endHour: 18,
-				weeks: 1
+				weeks: 1,
+				defaultPadding: 12 * 60 * 60 * 1000,
+				dayPadding: [24 * 60 * 60 * 1000]
 			}, opts || {});
 			return this.pickupTimesScheduled().then(function(scheduled){
 				for (var iweek = 0; iweek <= opts.weeks; iweek++) {
@@ -205,13 +207,14 @@ define('omni-consumer-client', [
 					for (var iday = 0; iday < 7; iday++) {
 						var day = [];
 						for (var ihour = opts.startHour; ihour <= opts.endHour; ihour += opts.hourDelta) {
-							var ts, avail, end, start = new Date();
+							var pad, ts, avail, end, start = new Date();
 							start.setHours(ihour);
 							start.setMinutes(0);
 							ts = start.setDate(start.getDate() + iweek * 7 + iday);
 							end = new Date(ts);
 							end.setHours(end.getHours() + opts.hourDelta);
-							avail = start > now && scheduled.indexOf(ts) < 0;
+							pad = opts.dayPadding[start.getDay()] || opts.defaultPadding;
+							avail = start.getTime() > (now.getTime()+pad) && scheduled.indexOf(ts) < 0;
 							day.push(new TimeSlot({
 								start: start.getTime(),
 								end: end.getTime(),
