@@ -27,14 +27,11 @@ define('omni-account-model', [
 		hasPaymentCredentials: function() {
 			return !!this.data.payment_credentials_filled;
 		},
-		hasPricingPlan: function() {
-			return !!this.pricingPlan();
-		},
 		canCheckin: function() {
 			return this.hasAddress() && this.hasPhone();
 		},
 		isBillable: function() {
-			return this.hasPaymentCredentials() && this.hasPricingPlan();
+			return this.hasPaymentCredentials();
 		},
 		phone: function(val) {
 			if (val === undefined) return this.data.phone;
