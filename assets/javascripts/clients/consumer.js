@@ -194,7 +194,7 @@ define('omni-consumer-client', [
 			var weeks = [], now = new Date(), twelve = 12 * 60 * 60 * 1000;
 			opts = $.extend({
 				startDate: new Date(now.getTime() + twelve),
-				hourDelta: 2,
+				hourDelta: 1,
 				startHour: 8,
 				endHour: 18,
 				weeks: 1,
