@@ -191,42 +191,40 @@ define('omni-consumer-client', [
 		},
 
 		pickupTimeSlots: function (opts) {
-			var weeks = [], now = new Date();
+			var weeks = [], now = new Date(), twelve = 12 * 60 * 60 * 1000;
 			opts = $.extend({
-				startDate: now,
+				startDate: new Date(now.getTime() + twelve),
 				hourDelta: 2,
 				startHour: 8,
 				endHour: 18,
 				weeks: 1,
-				defaultPadding: 12 * 60 * 60 * 1000,
+				defaultPadding: twelve,
 				dayPadding: [24 * 60 * 60 * 1000]
 			}, opts || {});
-			return this.pickupTimesScheduled().then(function(scheduled){
-				for (var iweek = 0; iweek <= opts.weeks; iweek++) {
-					var week = [];
-					for (var iday = 0; iday < 7; iday++) {
-						var day = [];
-						for (var ihour = opts.startHour; ihour <= opts.endHour; ihour += opts.hourDelta) {
-							var pad, ts, avail, end, start = new Date();
-							start.setHours(ihour);
-							start.setMinutes(0);
-							ts = start.setDate(start.getDate() + iweek * 7 + iday);
-							end = new Date(ts);
-							end.setHours(end.getHours() + opts.hourDelta);
-							pad = opts.dayPadding[start.getDay()] || opts.defaultPadding;
-							avail = start.getTime() > (now.getTime()+pad) && scheduled.indexOf(ts) < 0;
-							day.push(new TimeSlot({
-								start: start.getTime(),
-								end: end.getTime(),
-								available: avail
-							}));
-						}
-						week.push(day);
+			for (var iweek = 0; iweek <= opts.weeks; iweek++) {
+				var week = [];
+				for (var iday = 0; iday < 7; iday++) {
+					var day = [];
+					for (var ihour = opts.startHour; ihour <= opts.endHour; ihour += opts.hourDelta) {
+						var pad, ts, avail, end, start = new Date(opts.startDate.getTime());
+						start.setHours(ihour);
+						start.setMinutes(0);
+						ts = start.setDate(start.getDate() + iweek * 7 + iday);
+						end = new Date(ts);
+						end.setHours(end.getHours() + opts.hourDelta);
+						pad = opts.dayPadding[start.getDay()] || opts.defaultPadding;
+						avail = start.getTime() > (now.getTime()+pad);
+						day.push(new TimeSlot({
+							start: start.getTime(),
+							end: end.getTime(),
+							available: avail
+						}));
 					}
-					weeks.push(week);
+					week.push(day);
 				}
-				return weeks;
-			});
+				weeks.push(week);
+			}
+			return $.Deferred().resolve(weeks).promise();
 		},
 
 		salePointsByAddress: function (address, distance) {
