@@ -139,10 +139,9 @@ define('omni-consumer-client', [
 			});
 		},
 
-		loginWithFacebookToken: function (token) {
-			return this.exec('auth/login-facebook', {
-				token: token
-			}).then(function (resp) {
+		loginWithFacebookToken: function (token, extra) {
+			var params = $.extend(extra || {}, { token: token });
+			return this.exec('auth/login-facebook', params).then(function (resp) {
 				return resp.bodyContent(Account);
 			});
 		},
@@ -164,10 +163,12 @@ define('omni-consumer-client', [
 		},
 
 		createLead: function (details) {
-			return this.exec('auth/lead', $.extend(details, {
-				key: this.key,
+			var params = $.extend({
 				building_name: this.constants.CUSTOM_BUILDING_NAME
-			})).then(function (resp) {
+			}, details || {}, {
+				key: this.key
+			});
+			return this.exec('auth/lead', params).then(function (resp) {
 				return resp.bodyContent(Account);
 			});
 		},
