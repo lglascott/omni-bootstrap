@@ -19,6 +19,7 @@ define('omni-account-model', [
 		firstName: function(){ return this.data.first_name; },
 		lastName: function(){ return this.data.last_name; },
 		email: function(){ return this.data.email; },
+		id: function(){ return this.data.id || 'anonymous'; },
 		discountCode: function(val) {
 			if (val === undefined) return this.data.discount_code;
 			else this.data.discount_code = val;
