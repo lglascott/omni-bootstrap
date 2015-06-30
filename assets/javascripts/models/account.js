@@ -25,8 +25,13 @@ define('omni-account-model', [
 			else this.data.discount_code = val;
 			return this;
 		},
-		hasPaymentCredentials: function() {
-			return !!this.data.payment_credentials_filled;
+		pricingPlan: function(val) {
+			if (val === undefined) return this.data.pricing_plan;
+			else this.data.pricing_plan = val;
+			return this;
+		},
+		hasPricingPlan: function() {
+			return !!this.data.pricingPlan();
 		},
 		canCheckin: function() {
 			return this.hasAddress() && this.hasPhone();
@@ -52,11 +57,7 @@ define('omni-account-model', [
 			return this;
 		},
 		fillProfile: function(values) {
-			return $.extend({}, this.data, {
-				first_name: this.firstName(),
-				last_name: this.lastName(),
-				email: this.email()
-			}, values);
+			return $.extend({}, this.data, values);
 		}
 	};
 
