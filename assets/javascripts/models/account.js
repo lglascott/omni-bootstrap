@@ -31,7 +31,7 @@ define('omni-account-model', [
 			return this;
 		},
 		hasPricingPlan: function() {
-			return !!this.data.pricingPlan();
+			return !!this.pricingPlan();
 		},
 		canCheckin: function() {
 			return this.hasAddress() && this.hasPhone();
