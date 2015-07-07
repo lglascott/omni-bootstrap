@@ -26,8 +26,8 @@ define('omni-account-model', [
 			return this;
 		},
 		pricingPlan: function(val) {
-			if (val === undefined) return this.data.pricing_plan;
-			else this.data.pricing_plan = val;
+			if (val === undefined) return this.data.billing_plan || this.data.pricing_plan;
+			else this.data.billing_plan = this.data.pricing_plan = val;
 			return this;
 		},
 		hasPricingPlan: function() {
