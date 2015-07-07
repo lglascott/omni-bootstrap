@@ -99,16 +99,17 @@ $spinner-size: 40px;
 		z-index: 50;
 		left: -100%;
 		content: '';
-		width: 100%;
+		width: 110%;
 		height: 100%;
+		margin: auto -5%;
 		position: absolute;
 		@include opacity(0);
-		background: url("#{$omni-image-path}/spinner.gif") center center no-repeat scroll fade-out(white, 0.2);
+		background: url("#{$omni-image-path}/spinner.gif") center center no-repeat fixed fade-out(white, 0.2);
 		@include background-size($spinner-size);
 		@include transition(opacity 0.5s, left 0s ease 0.5s);
 	}
 	&.loading::after {
-		left: 0;
+		left: 0%;
 		@include opacity(1);
 		@include transition(opacity 0.5s, left 0s);
 	}
